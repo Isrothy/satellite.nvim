@@ -43,6 +43,10 @@ local create_view = util.noautocmd(function(cfg)
   set_winlocal_opt(winid, 'winblend', user_config.winblend)
   set_winlocal_opt(winid, 'foldcolumn', '0')
   set_winlocal_opt(winid, 'wrap', false)
+  set_winlocal_opt(winid, 'number', false)
+  set_winlocal_opt(winid, 'relativenumber', false)
+  set_winlocal_opt(winid, 'signcolumn', 'yes:1')
+  set_winlocal_opt(winid, 'statuscolumn', '')
 
   return winid
 end)
@@ -93,13 +97,13 @@ local function get_or_create_view(winid)
   local cfg = {
     win = winid,
     relative = 'win',
-    style = 'minimal',
+    anchor = 'NE',
     focusable = false,
     zindex = user_config.zindex,
     width = 1,
     row = 0,
     height = util.get_winheight(winid),
-    col = api.nvim_win_get_width(winid) - 1,
+    col = api.nvim_win_get_width(winid),
   }
 
   local bar_winid = winids[winid]
@@ -108,7 +112,6 @@ local function get_or_create_view(winid)
     -- wininfo can be nil when pressing <C-w>o in help buffers
     if bar_wininfo then
       local signwidth = bar_wininfo.textoff
-      cfg.col = cfg.col - signwidth
       cfg.width = cfg.width + signwidth
     end
   end
