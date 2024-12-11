@@ -27,6 +27,7 @@ local create_view = util.noautocmd(function(cfg)
   local bufnr = api.nvim_create_buf(false, true)
   vim.bo[bufnr].modifiable = false
   vim.bo[bufnr].buftype = 'nofile'
+  vim.bo[bufnr].filetype = 'satellite'
   vim.bo[bufnr].swapfile = false
   vim.bo[bufnr].bufhidden = 'wipe'
   vim.bo[bufnr].buflisted = false
